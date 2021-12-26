@@ -1,0 +1,135 @@
+.coordinator {
+  flex: 4;
+  padding: 20px;
+}
+
+.coordinatorTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coordinatorAddButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: teal;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+.coordinatorContainer {
+  display: flex;
+  margin-top: 20px;
+}
+
+.coordinatorShow {
+  flex: 1;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.coordinatorUpdate {
+  flex: 2;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  margin-left: 20px;
+}
+
+.coordinatorShowTop {
+  display: flex;
+  align-items: center;
+}
+
+.coordinatorShowImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.coordinatorShowTopTitle {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.coordinatorShowCoordinatorname {
+  font-weight: 600;
+}
+
+.coordinatorShowBottom{
+    margin-top: 20px;
+}
+
+.coordinatorShowTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(175, 170, 170);
+}
+
+.coordinatorShowInfo{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    color: #444;
+}
+
+.coordinatorShowIcon{
+    font-size: 16px !important;
+}
+
+.coordinatorShowInfoTitle{
+    margin-left: 10px;
+}
+
+.coordinatorUpdateTitle{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.coordinatorUpdateForm{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.coordinatorUpdateItem{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.coordinatorUpdateItem>label{
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.coordinatorUpdateInput{
+    border: none;
+    width: 250px;
+    height: 30px;
+    border-bottom: 1px solid gray;
+}
+
+.coordinatorUpdateRight{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.coordinatorUpdateButton{
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    background-color: darkblue;
+    color: white;
+    font-weight: 600;
+    align-self: flex-start;
+}

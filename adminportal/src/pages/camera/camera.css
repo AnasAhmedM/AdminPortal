@@ -1,0 +1,130 @@
+.camera {
+  flex: 4;
+  padding: 20px;
+}
+
+.cameraTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cameraAddButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: teal;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cameraTop {
+  display: flex;
+}
+
+.cameraTopLeft,
+.cameraTopRight {
+  flex: 1;
+}
+
+.cameraTopRight {
+  padding: 20px;
+  margin: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.cameraInfoImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.cameraInfoTop {
+  display: flex;
+  align-items: center;
+}
+
+.cameraName {
+  font-weight: 600;
+}
+
+.cameraInfoBottom {
+  margin-top: 10px;
+}
+
+.cameraInfoItem {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cameraInfoValue {
+  font-weight: 300;
+}
+
+.cameraBottom {
+  padding: 20px;
+  margin: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.cameraForm {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cameraFormLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.cameraFormLeft > label {
+  margin-bottom: 10px;
+  color: gray;
+}
+
+.cameraFormLeft > input {
+  margin-bottom: 10px;
+  border: none;
+  padding: 5px;
+  border-bottom: 1px solid gray;
+}
+
+.cameraFormLeft >select{
+  margin-bottom: 10px;
+}
+
+.cameraUploadImg{
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.cameraFormRight{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.cameraUpload{
+  display: flex;
+  align-items: center;
+}
+
+.cameraButton{
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: darkblue;
+  color:white;
+  font-weight: 600;
+  cursor: pointer;
+}
