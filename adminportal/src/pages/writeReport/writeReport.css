@@ -1,17 +1,18 @@
-.newCoordinator {
-  flex: 4;
-  margin: 20px;
+.writeReport {
+    flex: 4;
+    margin: 20px;
+    border-width: 40px;
 }
 
-.newCoordinatorTitle {
+.writeReportTitle {
   margin: 5px;
 }
 
-.newCoordinatorForm {
+.writeReportForm {
   flex-wrap: wrap;
 }
 
-.newCoordinatorItem {
+.writeReportFormItem {
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -19,22 +20,28 @@
   margin-right: 20px;
 }
 
-.newCoordinatorItem > label {
+.writeReportFormItem > label {
   margin-bottom: 10px;
   font-size: 14px;
   font-weight: 600;
   color: rgb(151, 150, 150);
 }
 
-.newCoordinatorItem > input {
+.writeReportFormItem > input {
   height: 20px;
   padding: 10px;
   border: 1px solid gray;
   border-radius: 5px;
 }
 
+.writeReportFormItem > textarea {
+  height: 256px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
 
-.newCoordinatorButton{
+.writeReportFormButton{
     width: 200px;
     border: none;
     background-color: darkblue;

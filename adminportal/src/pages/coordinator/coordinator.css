@@ -33,12 +33,22 @@
 }
 
 .coordinatorUpdate {
-  flex: 2;
+  flex: 1;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   margin-left: 20px;
 }
+
+.coordinatorChangePassword {
+  flex: 1;
+  flex-direction: row;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  margin-left: 20px;
+}
+
 
 .coordinatorShowTop {
   display: flex;
@@ -122,6 +132,12 @@
     justify-content: center;
 }
 
+.coordinatorUpdatePasswordBelow{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 
 .coordinatorUpdateButton{
     border-radius: 5px;
@@ -132,4 +148,15 @@
     color: white;
     font-weight: 600;
     align-self: flex-start;
+}
+
+.coordinatorUpdatePasswordButton{
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  font-weight: 600;
+  align-self: flex-end;
 }

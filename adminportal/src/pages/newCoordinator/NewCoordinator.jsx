@@ -1,11 +1,13 @@
 import "./newCoordinator.css";
 import React, {useState} from "react";
-import { Redirect } from "react-router-dom";
-import { Coordinator, CoordinatorBuilder } from "../../firebase/Coordinator";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { auth, database } from "../../firebase/Firebase";
+import { useHistory } from "react-router-dom";
 
 
 export default function NewCoordinator() {
-  const [response, setResponse] = useState({});
+  const history = useHistory()
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,21 +18,49 @@ export default function NewCoordinator() {
   const handleSubmit = (event) => {
     event.preventDefault()
     
-    var coordinator = new CoordinatorBuilder()
-    .setUsername(username)
-    .setName(name)
-    .setEmail(email)
-    .setPassword(password)
-    .setDepartment(department)
-    .setResponsibilities(responsibilities)
-    .build()
-
-    setResponse(coordinator.createCoordinator())
-    alert(response.message)
-
-    if (response.message === "Sucesss")
-      window.location.reload(false);
-    
+    auth.createUserWithEmailAndPassword(email, password)
+    .then(newUser =>{
+        const user = newUser.user
+        let data = 
+          {
+            username : username,
+            name : name,
+            email : email,
+            department : department,
+            responsibilities : responsibilities,
+            id: user.uid
+          }
+          console.log(JSON.stringify(data))
+        database.ref(`Coordinators/${user.uid}`).set(data)
+        .catch(error =>{
+          console.log(error.message)
+        })
+    })
+    .catch(error =>{
+        console.log(error.message)
+    })
+    setUsername("")
+    setName("")
+    setEmail("")
+    setPassword("")
+    setDepartment("")
+    setResponsibilities([])
+    confirmAlert({
+      title: 'New Coordinator Created!',
+      message: 'Go back or Stay',
+      buttons: [
+        {
+          label: 'Go back',
+          onClick: () => {
+            history.push('/admin/coordinators')
+          }
+        },
+        {
+          label: 'Stay',
+          onClick: () => {}
+        }
+      ]
+    });
   };
   
   return (
@@ -63,7 +93,6 @@ export default function NewCoordinator() {
         </div>
         <button className="newCoordinatorButton">Create</button>
       </form>
-      
     </div>
   );
 }

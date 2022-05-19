@@ -7,4 +7,5 @@ else
     firebase.app()
  
 const auth = firebase.auth()
-export { auth };
+const database = firebase.database()
+export { auth, database };

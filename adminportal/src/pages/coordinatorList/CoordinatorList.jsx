@@ -1,22 +1,64 @@
 import "./coordinatorList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { coordinatorData } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import {auth, database} from "../../firebase/Firebase";
 
 export default function CoordinatorList() {
-  const [data, setData] = useState(coordinatorData);
+  const [data, setData] = useState([]);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  useEffect(()=>{
+    if(data.length === 0){
+      database.ref('Coordinators').once('value', function (snapshot) {
+        let values = Object.keys(snapshot.val()).map((e) =>{
+          return snapshot.val()[e]
+        })
+        setData(values)
+      });
+    }
+  }, [])
+
+  const handleDelete = (uid, email, password) => {
+    confirmAlert({
+      title: 'Confirm to Delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            database.ref(`Coordinators/${uid}`).remove()
+            .catch(error => console.log(error.message))
+            auth
+              .deleteUser(uid)
+              .then(() => {
+                console.log('Successfully deleted user');
+              })
+              .catch((error) => {
+                console.log('Error deleting user:', error);
+              });
+            setData([])
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
   };
   
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
       field: "username",
       headerName: "Username",
+      width: 200,
+    },
+    {
+      field: "name",
+      headerName: "Name",
       width: 200,
     },
     { field: "email", headerName: "Email", width: 250 },
@@ -37,11 +79,16 @@ export default function CoordinatorList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/coordinator/" + params.row.id}>
+            <Link to={
+              {
+                pathname: "/admin/coordinator/" + params.row.username,
+                state : params.row
+              }
+            }>
               <button className="coordinatorListEdit">Edit</button>
             </Link>
-            <DeleteOutline
-              className="coordinatorListDelete"
+            <DeleteOutline 
+              className="coordinatorListDelete" 
               onClick={() => handleDelete(params.row.id)}
             />
           </>
@@ -53,12 +100,12 @@ export default function CoordinatorList() {
   return (
     
       <div className="coordinatorList">
+        {/* {JSON.stringify(data)} */}
         <DataGrid
           rows={data}
           disableSelectionOnClick
           columns={columns}
           pageSize={8}
-          checkboxSelection
         />
       </div>
       
