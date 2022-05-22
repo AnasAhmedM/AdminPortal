@@ -28,7 +28,8 @@ export default function NewCoordinator() {
             email : email,
             department : department,
             responsibilities : responsibilities,
-            id: user.uid
+            id: user.uid,
+            reports: []
           }
           console.log(JSON.stringify(data))
         database.ref(`Coordinators/${user.uid}`).set(data)

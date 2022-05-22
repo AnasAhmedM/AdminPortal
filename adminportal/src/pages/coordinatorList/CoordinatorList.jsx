@@ -13,6 +13,8 @@ export default function CoordinatorList() {
   useEffect(()=>{
     if(data.length === 0){
       database.ref('Coordinators').once('value', function (snapshot) {
+        if(!snapshot.val())
+          return
         let values = Object.keys(snapshot.val()).map((e) =>{
           return snapshot.val()[e]
         })
@@ -31,14 +33,6 @@ export default function CoordinatorList() {
           onClick: () => {
             database.ref(`Coordinators/${uid}`).remove()
             .catch(error => console.log(error.message))
-            auth
-              .deleteUser(uid)
-              .then(() => {
-                console.log('Successfully deleted user');
-              })
-              .catch((error) => {
-                console.log('Error deleting user:', error);
-              });
             setData([])
           }
         },

@@ -8,7 +8,8 @@ import {
   BarChart,
   MailOutline,
   DynamicFeed,
-  ExitToApp
+  ExitToApp,
+  TrendingUp
 } from "@material-ui/icons"
 
 import {useEffect, useState} from "react";
@@ -19,10 +20,19 @@ import { database } from "../../firebase/Firebase";
 export default function Sidebar() {
   const history = useHistory()
   const [notification, setNotification] = useState(0)
+  const [time, setTime] = useState(Date.now());
+
+  useEffect(() => {
+  const interval = setInterval(() => setTime(Date.now()), 1000);
+  return () => {
+    clearInterval(interval);
+  };
+  }, []);
 
   useEffect(()=>{
     database.ref('/Reports').once('value', function (snapshot) {
       let count = 0 
+      if(snapshot.val())
       Object.keys(snapshot.val()).forEach(e=> {
         if(snapshot.val()[e]['read'] === false) 
           count+=1
@@ -43,15 +53,24 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="/admin/" className="link">
-            <li className="sidebarListItem">
-              <LineStyle className="sidebarIcon" />
-              Home
-            </li>
+              <li className="sidebarListItem">
+                <LineStyle className="sidebarIcon" />
+                Home
+              </li>
             </Link>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
+            <Link to="/admin/analytics" className="link">
+              <li className="sidebarListItem">
+                <Timeline className="sidebarIcon" />
+                Analytics
+              </li>
+            </Link>
+            <Link to="/admin/trends" className="link">
+              <li className="sidebarListItem">
+                <TrendingUp className="sidebarIcon" />
+                Trends
+              </li>
+            </Link>
+            
             <li className="sidebarListItem" onClick={()=>handleLogout()}>
               <ExitToApp className="sidebarIcon" />
               Logout

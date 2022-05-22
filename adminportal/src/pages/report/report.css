@@ -1,0 +1,50 @@
+.report{
+    flex: 4;
+    padding: 20px;
+}
+
+.reportTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+.reportContainer {
+    display: flex;
+    margin-top: 20px;
+}
+
+.reportShow {
+    flex: 1;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.reportShowBlock {
+    display: flex;
+    align-items: center;
+}
+
+.reportShowTopTitle {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+  
+.reportShowTitle {
+    font-weight: 600;
+  }
+
+
+.reportFieldShowTitleShowTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(175, 170, 170);
+}
+
+.reportShowDesc{
+    display: flex;
+    align-items: center;
+    color: #444;
+}

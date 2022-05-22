@@ -1,3 +1,4 @@
+import "./coordinator.css";
 import {
   LocationSearching,
   MailOutline,
@@ -5,9 +6,7 @@ import {
   Person,
   Work
 } from "@material-ui/icons";
-import { Link, useLocation, useHistory} from "react-router-dom";
-import "./coordinator.css";
-import { coordinatorData } from "../../dummyData";
+import {useLocation, useHistory} from "react-router-dom";
 import { useState, useEffect } from "react";
 import {database} from "../../firebase/Firebase";
 
@@ -47,10 +46,6 @@ export default function Coordinator() {
     )
     history.push('/admin/coordinators')
   };
-
-  const handleUpdatePassword = () => {
-    
-};
 
   return (
     <div className="coordinator">

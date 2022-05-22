@@ -97,7 +97,7 @@ export default function WriteReport() {
                 </div>
                 <div className="writeReportFormItem">
                     <label>Priority</label>
-                    <Select options={priorityOptions} onChange={(e) => setPriority(e.value)}/>
+                    <Select defaultValue={{value: 'low', label: 'Low'}} options={priorityOptions} onChange={(e) => setPriority(e.value)}/>
                 </div>
                 <button className="writeReportFormButton">Send</button>
             </form>

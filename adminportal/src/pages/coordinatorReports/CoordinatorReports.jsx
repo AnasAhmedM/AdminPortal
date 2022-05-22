@@ -9,11 +9,20 @@ import {auth, database} from "../../firebase/Firebase";
 
 export default function CoordinatorReports(){
     const [data, setData] = useState([]);
-    const [names, setName]  = useState([]);
+    const [time, setTime] = useState(Date.now());
+
+    useEffect(() => {
+    const interval = setInterval(() => setTime(Date.now()), 10000);
+    return () => {
+      clearInterval(interval);
+    };
+    }, []);
 
     useEffect(()=>{
-    if(data.length === 0){
+      if(data.length===0)
       database.ref('Reports').once('value', function (snapshot) {
+        if(!snapshot.val())
+          return
         let values = Object.keys(snapshot.val()).map((e) =>{
            let current = snapshot.val()[e]
            current['id'] = e
@@ -21,15 +30,35 @@ export default function CoordinatorReports(){
         })
         setData(values)
       });
-    }
-    }, [])
+    })
 
     const handleDelete = (id) => {
-        setData(data.filter(e =>  e.id != id))
-    }
+    confirmAlert({
+      title: 'Confirm to Delete',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            database.ref(`Reports/${id}`).remove()
+            .catch(error => console.log(error.message))
+            setData([])
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
+  };
 
     const markRead = (id) => {
       database.ref(`Reports/${id}/read`).set(true)
+    }
+
+    const readToggle = (id,read) => {
+      database.ref(`Reports/${id}/read`).set(read?false:true)
     }
 
     const columns = [
@@ -42,12 +71,40 @@ export default function CoordinatorReports(){
           {
             field: "description",
             headerName: "Desc",
-            width: 400,
+            width: 250,
           },
           {
             field: "reporter",
             headerName: "Coordinator",
-            width: 400,
+            width: 200,
+          },
+          {
+            field: "priority",
+            headerName: "Priority",
+            width: 150,
+          },
+          {
+            field: "read",
+            headerName: "Status",
+            type: "action",
+            width: 150,
+            renderCell: (params) => {
+              return(
+                <div>
+                  <button className="coordinatorReportsReadMark" onClick={()=>{
+                    readToggle(params.row.id, params.row.read)
+                    setData([])
+                  }}>{params.row.read? "Mark Unread": "Mark Read"}</button>
+                </div>
+              )
+            }
+          },
+          {
+            field: 'date',
+            headerName: "Date/Time",
+            type: 'dateTime',
+            valueGetter: ({ value }) => value && new Date(value),
+            width: 200,
           },
           {
             field: "action",
@@ -58,11 +115,11 @@ export default function CoordinatorReports(){
                 <>
                   <Link to={
                     {
-                      pathname: "/admin/coordinatorReport/" + params.row.id,
+                      pathname: "/admin/report/" + params.row.id,
                       state : params.row
                     }
                   }>
-                    <button className="coordinatorListEdit" onClick={()=>markRead(params.row.id)}>Read</button>
+                    <button className="coordinatorReportsOpen" onClick={()=>markRead(params.row.id)}>Open</button>
                   </Link>
                   <DeleteOutline 
                     className="coordinatorListDelete" 
@@ -82,6 +139,7 @@ export default function CoordinatorReports(){
             disableSelectionOnClick
             columns={columns}
             pageSize={8}
+            sortingOrder={"priority"}
             />
         </div>
     )

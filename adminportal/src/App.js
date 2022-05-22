@@ -3,11 +3,14 @@ import Topbar from "./components/topbar/Topbar";
 import "./App.css";
 import Home from "./pages/home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Analytics from "./pages/analytics/Analytics";
+import Trends from "./pages/trends/Trends";
 import CoordinatorList from "./pages/coordinatorList/CoordinatorList";
 import WriteReport from "./pages/writeReport/WriteReport";
 import Coordinator from "./pages/coordinator/Coordinator";
 import NewCoordinator from "./pages/newCoordinator/NewCoordinator";
 import CoordinatorReports from "./pages/coordinatorReports/CoordinatorReports";
+import Report from "./pages/report/Report";
 import {useHistory} from "react-router-dom";
 import {LoginState} from "./firebase/LoginState"
 import {useEffect, useState} from "react";
@@ -18,10 +21,11 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import 'react-notifications/lib/notifications.css';
 
+
 function App(){
   const history = useHistory()
   const [logged, setLogged] = useState(LoginState['logged'])
-  const time = 300
+  const time = 1500
   const [notifications, setNotifications] = useState([])
   const [sent] = useState([])
 
@@ -53,6 +57,8 @@ function App(){
     
     if(notifications.length===0)
     database.ref('Reports').once('value', function (snapshot) {
+      if(!snapshot.val())
+          return
       let values = Object.keys(snapshot.val()).map((e) =>{
         if(snapshot.val()[e]['read'])
           return
@@ -79,6 +85,12 @@ function App(){
               <Route exact path="/admin/">
                 <Home />
               </Route>
+              <Route path="/admin/analytics">
+                <Analytics />
+              </Route>
+              <Route path="/admin/trends">
+                <Trends />
+              </Route>
               <Route path="/admin/coordinators">
                 <CoordinatorList />
               </Route>
@@ -93,6 +105,9 @@ function App(){
               </Route>
               <Route path="/admin/coordinatorReports">
                 <CoordinatorReports />
+              </Route>
+              <Route path="/admin/report/:id">
+                <Report />
               </Route>
             </Switch>
           </div>
