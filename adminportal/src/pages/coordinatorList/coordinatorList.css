@@ -2,11 +2,6 @@
   flex: 4;
 }
 
-.coordinatorListCoordinator {
-  display: flex;
-  align-items: center;
-}
-
 .coordinatorListImg {
   width: 32px;
   height: 32px;

@@ -7,17 +7,23 @@ import CoordinatorList from "./pages/coordinatorList/CoordinatorList";
 import WriteReport from "./pages/writeReport/WriteReport";
 import Coordinator from "./pages/coordinator/Coordinator";
 import NewCoordinator from "./pages/newCoordinator/NewCoordinator";
+import CoordinatorReports from "./pages/coordinatorReports/CoordinatorReports";
 import {useHistory} from "react-router-dom";
 import {LoginState} from "./firebase/LoginState"
 import {useEffect, useState} from "react";
 import { useIdleTimer } from 'react-idle-timer'
 import { confirmAlert } from 'react-confirm-alert';
+import { database } from "./firebase/Firebase";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import 'react-notifications/lib/notifications.css';
 
 function App(){
   const history = useHistory()
   const [logged, setLogged] = useState(LoginState['logged'])
   const time = 300
+  const [notifications, setNotifications] = useState([])
+  const [sent] = useState([])
 
   const onIdle = () => {
     confirmAlert({
@@ -36,15 +42,36 @@ function App(){
 
   const idleTimer = useIdleTimer({ onIdle, timeout: time *1000})
 
+  const onClickNotification = () => {
+    history.push('/admin/coordinatorReports')
+  }
+
   useEffect(()=>{
     setLogged(LoginState['logged'])
     if(!logged)
         history.push('/')
+    
+    if(notifications.length===0)
+    database.ref('Reports').once('value', function (snapshot) {
+      let values = Object.keys(snapshot.val()).map((e) =>{
+        if(snapshot.val()[e]['read'])
+          return
+        return snapshot.val()[e]
+      })
+      setNotifications(values)
+    });    
+
+    notifications.forEach(e=>{
+      if(e)
+        NotificationManager.info(e['title'], e['priority'], 2*1000, onClickNotification, e['priority'] === 'High'? true: false)
+    })
   })
 
   return (
     <Router>
       <div>
+        {/* {JSON.stringify(notifications)} */}
+        <NotificationContainer/>
         <Topbar />
           <div className="container">
             <Sidebar />
@@ -63,6 +90,9 @@ function App(){
               </Route>
               <Route path="/admin/newCoordinator">
                 <NewCoordinator />
+              </Route>
+              <Route path="/admin/coordinatorReports">
+                <CoordinatorReports />
               </Route>
             </Switch>
           </div>

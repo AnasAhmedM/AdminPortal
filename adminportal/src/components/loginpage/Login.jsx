@@ -37,10 +37,10 @@ export default function Login(){
                 <Person className='loginIcon'/>
             </div>
             <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <input type='input' name='username' placeholder='Username' required onChange={(e) => setUsername(e.target.value)}/>
                     <input type='password' name='pwd' placeholder='Password' required onChange={(e) => setPassword(e.target.value)}/>
-                    <button onClick={()=>handleSubmit()}>Log In</button>
+                    <button type='submit'>Log In</button>
                 </form>
             </div>
         </div>
