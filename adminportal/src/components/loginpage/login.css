@@ -1,6 +1,14 @@
+.main{
+    display: flex;
+    border: 10px solid #060505;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
 .divLogin{
-    width:200px;
-    height:300px;
+    width:250px;
+    height:350px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -8,24 +16,30 @@
     border: 1px solid #dbdbdb;
     border-radius: 5px;
     padding: 20px;
+    padding-bottom: 50px;
     margin-top: 10vh;
+    margin-bottom: 70px;
     background-color: white;
 } 
 
+.loginTitle{
+    padding-top: 100px;
+    align-self: center;
+}
+
 .divLoginLogo{
-    height: 50px;
-    width: 50px;
+    height: 150px;
+    width: 150px;
     align-self: center;
 }
 
 .loginIcon{
-    flex: 1;
-    height: 50px;
-    width: 50px;
+    font-size: 150px !important;
 }
 
 input{
     width: 95%;
+    height: 20px;
     border: 1px solid #dbdbdb;
     padding: 5px;
     margin: 2px 0;
@@ -45,4 +59,9 @@ button{
     border: none;
     color: white;
     border-radius: 5px;
+}
+
+footerText{
+    position: absolute;
+    bottom: 0;
 }

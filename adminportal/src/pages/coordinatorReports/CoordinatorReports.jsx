@@ -71,12 +71,12 @@ export default function CoordinatorReports(){
           {
             field: "description",
             headerName: "Desc",
-            width: 250,
+            width: 200,
           },
           {
             field: "reporter",
             headerName: "Coordinator",
-            width: 200,
+            width: 150,
           },
           {
             field: "priority",
@@ -139,7 +139,6 @@ export default function CoordinatorReports(){
             disableSelectionOnClick
             columns={columns}
             pageSize={8}
-            sortingOrder={"priority"}
             />
         </div>
     )

@@ -5,7 +5,6 @@ import {Person} from "@material-ui/icons";
 import {useHistory} from "react-router-dom";
 import {database} from "../../firebase/Firebase";
 import {LoginState} from "../../firebase/LoginState"
-import LoginBackground from "../../asserts/LoginBackground.png";
 
 export default function Login(){
     const history = useHistory()
@@ -32,17 +31,21 @@ export default function Login(){
     }
 
     return(
-        <div style={{ backgroundImage: `url(${LoginBackground})`}} className='divLogin'>
-            <div className='divLoginLogo'>
-                <Person className='loginIcon'/>
+        <div style={{backgroundColor:''}} className='main'>
+            <h1 className='loginTitle'>Welcome to Admin Portal</h1>
+            <div style={{backgroundColor:''}} className='divLogin'>
+                <div className='divLoginLogo'>
+                    <Person className='loginIcon'/>
+                </div>
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <input type='input' name='username' placeholder='Username' required onChange={(e) => setUsername(e.target.value)}/>
+                        <input type='password' name='pwd' placeholder='Password' required onChange={(e) => setPassword(e.target.value)}/>
+                        <button type='submit'>Log In</button>
+                    </form>
+                </div>
             </div>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <input type='input' name='username' placeholder='Username' required onChange={(e) => setUsername(e.target.value)}/>
-                    <input type='password' name='pwd' placeholder='Password' required onChange={(e) => setPassword(e.target.value)}/>
-                    <button type='submit'>Log In</button>
-                </form>
-            </div>
+            <h3 className='footerText'>Crowd Analysis for Covid-19 SOPs detection System - Admin Panel</h3>
         </div>
     )
 }
