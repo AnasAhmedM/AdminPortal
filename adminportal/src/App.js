@@ -3,8 +3,9 @@ import Topbar from "./components/topbar/Topbar";
 import "./App.css";
 import Home from "./pages/home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Analytics from "./pages/analytics/Analytics";
 import Trends from "./pages/trends/Trends";
+import FacemaskLogs from "./pages/facemaskLogs/FacemaskLogs";
+import SocialDistanceLogs from "./pages/socialDistanceLogs/SocialDistanceLogs"
 import CoordinatorList from "./pages/coordinatorList/CoordinatorList";
 import WriteReport from "./pages/writeReport/WriteReport";
 import Coordinator from "./pages/coordinator/Coordinator";
@@ -27,7 +28,6 @@ function App(){
   const [logged, setLogged] = useState(LoginState['logged'])
   const time = 300
   const [notifications, setNotifications] = useState([])
-  const [sent] = useState([])
 
   const onIdle = () => {
     confirmAlert({
@@ -85,11 +85,14 @@ function App(){
               <Route exact path="/admin/">
                 <Home />
               </Route>
-              <Route path="/admin/analytics">
-                <Analytics />
-              </Route>
               <Route path="/admin/trends">
                 <Trends />
+              </Route>
+              <Route path="/admin/facemaskLogs">
+                <FacemaskLogs />
+              </Route>
+              <Route path="/admin/socialDistanceLogs">
+                <SocialDistanceLogs />
               </Route>
               <Route path="/admin/coordinators">
                 <CoordinatorList />

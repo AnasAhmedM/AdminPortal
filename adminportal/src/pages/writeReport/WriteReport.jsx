@@ -25,7 +25,7 @@ export default function WriteReport() {
             setData(values)
           });
         }
-      }, [])
+      })
   
     const handleSubmit = (event) => {
         event.preventDefault()

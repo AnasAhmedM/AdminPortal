@@ -7,9 +7,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
+import {useEffect, useState} from "react";
 export default function Chart({ title, data, dataKey, grid }) {
-
   return (
     <div className="chart">
       <h3 className="chartTitle">{title}</h3>

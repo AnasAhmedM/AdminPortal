@@ -1,6 +1,5 @@
 import React from "react";
 import "./topbar.css";
-import { NotificationsNone, Language, Settings, Person} from "@material-ui/icons";
 
 export default function Topbar() {
   return (

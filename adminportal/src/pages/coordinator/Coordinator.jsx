@@ -28,7 +28,7 @@ export default function Coordinator() {
       setDepartment(department)
       setResponsibilities(responsibilities)
     }
-  })
+  }, [getName.length, name, email, username, department, responsibilities])
 
   const handleUpdate = () => {
     database.ref(`Coordinators/${id}`).set(

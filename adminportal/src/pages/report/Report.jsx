@@ -1,9 +1,7 @@
 import "./report.css"
-import {useLocation, useHistory} from "react-router-dom";
-import { useState, useEffect } from "react";
+import {useLocation} from "react-router-dom";
 
 export default function Report(){
-    const history = useHistory()
     const location = useLocation()
     const {title, description, reporter} = location.state
     return(

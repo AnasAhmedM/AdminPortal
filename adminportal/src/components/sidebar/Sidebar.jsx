@@ -1,24 +1,21 @@
 import "./sidebar.css"
 import {
   LineStyle,
-  Timeline,
+  Wc,
   PermIdentity,
-  Storefront,
-  CameraRear,
   BarChart,
-  MailOutline,
   DynamicFeed,
   ExitToApp,
-  TrendingUp
+  TrendingUp,
+  Face
 } from "@material-ui/icons"
 
 import {useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom"
+import {Link} from "react-router-dom"
 import {LoginState} from "../../firebase/LoginState"
 import { database } from "../../firebase/Firebase";
 
 export default function Sidebar() {
-  const history = useHistory()
   const [notification, setNotification] = useState(0)
   const [time, setTime] = useState(Date.now());
 
@@ -58,16 +55,22 @@ export default function Sidebar() {
                 Home
               </li>
             </Link>
-            <Link to="/admin/analytics" className="link">
-              <li className="sidebarListItem">
-                <Timeline className="sidebarIcon" />
-                Analytics
-              </li>
-            </Link>
             <Link to="/admin/trends" className="link">
               <li className="sidebarListItem">
                 <TrendingUp className="sidebarIcon" />
                 Trends
+              </li>
+            </Link>
+            <Link to="/admin/facemaskLogs" className="link">
+              <li className="sidebarListItem">
+                <Face className="sidebarIcon" />
+                Facemask Logs
+              </li>
+            </Link>
+            <Link to="/admin/socialDistanceLogs" className="link">
+              <li className="sidebarListItem">
+                <Wc className="sidebarIcon" />
+                Social Distance Logs
               </li>
             </Link>
             

@@ -23,7 +23,8 @@ export default function Login(){
         }
       }, [])
 
-    const handleSubmit = () =>{
+    const handleSubmit = (event) =>{
+        event.preventDefault()
         if(data['password'] === password && data['username'] === username){
             LoginState['logged'] = true
             history.push('/admin')

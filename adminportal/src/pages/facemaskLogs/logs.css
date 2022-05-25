@@ -1,0 +1,9 @@
+.logs {
+    flex: 4;
+  }
+  
+  
+.logDelete{
+      color: red;
+      cursor: pointer;
+}
