@@ -16,9 +16,6 @@ export default function Coordinator() {
   const {name, username, email, department, responsibilities, id} = location.state
   const [getName, setName] = useState("");
   const [getEmail, setEmail] = useState("");
-  const [getOldPassword, setOldPassword] = useState("");
-  const [getPassword, setPassword] = useState("");
-  const [getPassword1, setPassword1] = useState("");
   const [getUsername, setUsername] = useState("");
   const [getDepartment, setDepartment] = useState("");
   const [getResponsibilities, setResponsibilities] = useState([]);

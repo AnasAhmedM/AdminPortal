@@ -25,7 +25,7 @@ import 'react-notifications/lib/notifications.css';
 function App(){
   const history = useHistory()
   const [logged, setLogged] = useState(LoginState['logged'])
-  const time = 15
+  const time = 300
   const [notifications, setNotifications] = useState([])
   const [sent] = useState([])
 
