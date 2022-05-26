@@ -24,7 +24,7 @@ export default function Home() {
       .then(response => response.json())
       .then(jsonData => 
         {
-            SetNoMask(jsonData)
+            SetNoMask(jsonData['data'])
         })
       .catch(err => {})
 
@@ -33,7 +33,7 @@ export default function Home() {
       .then(response => response.json())
       .then(jsonData => 
         {
-            SetNumPeople(jsonData)
+            SetNumPeople(jsonData['data'])
         })
       .catch(err => {})
 
@@ -42,7 +42,7 @@ export default function Home() {
       .then(response => response.json())
       .then(jsonData => 
         {
-            SetNumViolation(jsonData)
+            SetNumViolation(jsonData['data'])
         })
       .catch(err => {})
     
@@ -51,7 +51,8 @@ export default function Home() {
         {
           noMask: noMask,
           numPeople: numPeople,
-          numViolation: numViolation
+          numViolation: numViolation,
+          lastUpdate: Date.now()
         }
       ).catch(error =>{
         console.log(error.message)
