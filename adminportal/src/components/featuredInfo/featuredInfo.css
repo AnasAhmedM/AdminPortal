@@ -45,6 +45,10 @@
     color: red;
 }
 
+.featuredIcon.positive{
+    color: green;
+}
+
 .featuredSub{
     font-size: 15px;
     color: gray;

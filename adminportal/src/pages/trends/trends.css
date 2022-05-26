@@ -1,3 +1,8 @@
 .trends{
     flex: 4;
 }
+
+.trendsWidgets{
+    display: flex;
+    margin: 20px;
+}

@@ -1,7 +1,9 @@
 import Chart from "../../components/chart/Chart";
+import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./home.css";
 import {useEffect, useState} from "react";
 import {database} from "../../firebase/Firebase";
+
 
 export default function Home() {
   const [noMask, setNoMask] = useState([])
@@ -17,6 +19,7 @@ export default function Home() {
   const [totalNumPeopleLastWeek, setTotalNumPeopleLastWeek] = useState(0)
   const [numViolationLastWeek, setNumViolationLastWeek] = useState([])
   const [totalNumViolationLastWeek, setTotalNumViolationLastWeek] = useState(0)
+  const [snapshot, setSnapshot] = useState(false)
 
   
 
@@ -80,7 +83,8 @@ export default function Home() {
               setTotalNumViolationLastWeek(jsonData['total'])
           })
         .catch(err => {})
-    
+          
+      if(noMask.length && numPeople.length && numViolation.length)
       database.ref('Snapshot/').set(
         {
           noMask: noMask,
@@ -88,7 +92,8 @@ export default function Home() {
           numViolation: numViolation,
           lastUpdate: Date.now()
         }
-      ).catch(error =>{
+      )
+      .catch(error =>{
         console.log(error.message)
       })
      })
@@ -97,9 +102,19 @@ export default function Home() {
   
   return (
     <div className="home">
+      <FeaturedInfo 
+        titles={["Crowd","No Mask","No Social Distance"]}
+        values={[totalNumPeople, totalNoMask, totalNumViolation]}
+        oldValues={[totalNumPeopleLastWeek, totalNoMaskLastWeek, totalNumViolationLastWeek]}
+        clause="Compared to Last Week"
+      />
       <Chart data={numPeople} title="Number Of People" grid dataKey="Total"/>
       <Chart data={noMask} title="People Without Mask" grid dataKey="Total"/>
       <Chart data={numViolation} title="People Not Social Distancing" grid dataKey="Total"/>
+
+      <Chart data={numPeopleLastWeek} title="Number Of People (Last Week)" grid dataKey="Total"/>
+      <Chart data={noMaskLastWeek} title="People Without Mask (Last Week)" grid dataKey="Total"/>
+      <Chart data={numViolationLastWeek} title="People Not Social Distancing (Last Week)" grid dataKey="Total"/>
     </div>
   );
 }
