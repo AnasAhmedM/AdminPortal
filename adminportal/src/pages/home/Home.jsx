@@ -4,27 +4,30 @@ import {useEffect, useState} from "react";
 import {database} from "../../firebase/Firebase";
 
 export default function Home() {
-  const [data, setData] = useState([])
-  const [noMask, SetNoMask] = useState([])
-  const [numPeople, SetNumPeople] = useState([])
-  const [numViolation, SetNumViolation] = useState([])
+  const [noMask, setNoMask] = useState([])
+  const [totalNoMask, setTotalNoMask] = useState(0)
+  const [numPeople, setNumPeople] = useState([])
+  const [totalNumPeople, setTotalNumPeople] = useState(0)
+  const [numViolation, setNumViolation] = useState([])
+  const [totalNumViolation, setTotalNumViolation] = useState(0)
+
+  const [noMaskLastWeek, setNoMaskLastWeek] = useState([])
+  const [totalNoMaskLastWeek, setTotalNoMaskLastWeek] = useState(0)
+  const [numPeopleLastWeek, setNumPeopleLastWeek] = useState([])
+  const [totalNumPeopleLastWeek, setTotalNumPeopleLastWeek] = useState(0)
+  const [numViolationLastWeek, setNumViolationLastWeek] = useState([])
+  const [totalNumViolationLastWeek, setTotalNumViolationLastWeek] = useState(0)
+
+  
 
   useEffect(()=>{
-    if(data.length===0)
-    fetch('http://localhost:4000/facemask/', {method:"GET"})
-      .then(response => response.json())
-      .then(jsonData => 
-        {
-            setData(jsonData)
-        })
-      .catch(err => {})
-    
     if(noMask.length===0)
     fetch('http://localhost:4000/facemask/noMask', {method:"GET"})
       .then(response => response.json())
       .then(jsonData => 
         {
-            SetNoMask(jsonData['data'])
+            setNoMask(jsonData['data'])
+            setTotalNoMask(jsonData['total'])
         })
       .catch(err => {})
 
@@ -33,7 +36,8 @@ export default function Home() {
       .then(response => response.json())
       .then(jsonData => 
         {
-            SetNumPeople(jsonData['data'])
+            setNumPeople(jsonData['data'])
+            setTotalNumPeople(jsonData['total'])
         })
       .catch(err => {})
 
@@ -42,10 +46,40 @@ export default function Home() {
       .then(response => response.json())
       .then(jsonData => 
         {
-            SetNumViolation(jsonData['data'])
+            setNumViolation(jsonData['data'])
+            setTotalNumViolation(jsonData['total'])
         })
       .catch(err => {})
     
+      if(noMaskLastWeek.length===0)
+      fetch('http://localhost:4000/facemask/noMaskLastWeek', {method:"GET"})
+        .then(response => response.json())
+        .then(jsonData => 
+          {
+              setNoMaskLastWeek(jsonData['data'])
+              setTotalNoMaskLastWeek(jsonData['total'])
+          })
+        .catch(err => {})
+  
+      if(numPeopleLastWeek.length===0)
+      fetch('http://localhost:4000/socialdistance/numPeopleLastWeek', {method:"GET"})
+        .then(response => response.json())
+        .then(jsonData => 
+          {
+              setNumPeopleLastWeek(jsonData['data'])
+              setTotalNumPeopleLastWeek(jsonData['total'])
+          })
+        .catch(err => {})
+  
+      if(numViolationLastWeek.length===0)
+      fetch('http://localhost:4000/socialdistance/numViolationLastWeek', {method:"GET"})
+        .then(response => response.json())
+        .then(jsonData => 
+          {
+              setNumViolationLastWeek(jsonData['data'])
+              setTotalNumViolationLastWeek(jsonData['total'])
+          })
+        .catch(err => {})
     
       database.ref('Snapshot/').set(
         {
