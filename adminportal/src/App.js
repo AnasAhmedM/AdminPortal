@@ -21,6 +21,7 @@ import { database } from "./firebase/Firebase";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import 'react-notifications/lib/notifications.css';
+import { Weights } from "./pages/trends/trendsW";
 
 
 function App(){
@@ -28,6 +29,10 @@ function App(){
   const [logged, setLogged] = useState(LoginState['logged'])
   const time = 300
   const [notifications, setNotifications] = useState([])
+  const [sendNotifations, setSendNotifations] = useState(false)
+  const [sendAlertCrowd, setSendAlertCrowd] = useState(false)
+  const [sendAlertUnmasked, setSendAlertUnmasked] = useState(false)
+  const [sendAlertViolation, setSendAlertViolation] = useState(false)
 
   const onIdle = () => {
     confirmAlert({
@@ -47,7 +52,7 @@ function App(){
   const idleTimer = useIdleTimer({ onIdle, timeout: time *1000})
 
   const onClickNotification = () => {
-    history.push('/admin/coordinatorReports')
+  
   }
 
   useEffect(()=>{
@@ -67,10 +72,39 @@ function App(){
       setNotifications(values)
     });    
 
-    notifications.forEach(e=>{
-      if(e)
-        NotificationManager.info(e['title'], e['priority'], 2*1000, onClickNotification, e['priority'] === 'High'? true: false)
-    })
+    if(!sendNotifations && notifications.length!==0){
+      setSendNotifations(true)
+      setTimeout(()=>{
+        notifications.forEach(e=>{
+          if(e)
+            NotificationManager.info(e['title'], e['priority'], 2*1000, onClickNotification, false)
+        })
+      },1000)
+    }
+
+    if(!sendAlertCrowd){
+      setSendAlertCrowd(true)
+      setTimeout(()=>{
+        if(Weights.crowd>0)
+            NotificationManager.error(`Increased by ${Weights.crowd}%`,"Crowd is Increasing", 5*1000, true)
+      },1000)
+    }
+
+    if(!sendAlertUnmasked){
+      setSendAlertUnmasked(true)
+      setTimeout(()=>{
+        if(Weights.unmasked>0)
+          NotificationManager.error(`Increased by ${Weights.unmasked}%`,"More People are not Wearing Masks", 5*1000, true)
+      },1000)
+    }
+
+    if(!sendAlertViolation){
+      setSendAlertViolation(true)
+      setTimeout(()=>{
+        if(Weights.violation>0)
+          NotificationManager.error(`Increased by ${Weights.violation}%`,"More People are not Social Distancing", 5*1000, true)
+      },1000)
+    }
   })
 
   return (
