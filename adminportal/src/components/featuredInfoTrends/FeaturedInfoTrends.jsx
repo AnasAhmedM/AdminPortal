@@ -1,41 +1,11 @@
 import "./featuredInfo.css";
 import {useEffect, useState} from "react";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
-import { Weights } from "../../pages/trends/trends";
 
-export default function FeaturedInfo({titles, values, oldValues, clause}) {
-  const [featureOne, setFeatureOne] = useState(0)
-  const [featureTwo, setFeatureTwo] = useState(0)
-  const [featureThree, setFeatureThree] = useState(0)
-  const [time, setTime] = useState(Date.now());
-
-  useEffect(() => {
-  const interval = setInterval(() => setTime(Date.now()), 10000);
-  return () => {
-    clearInterval(interval);
-  };
-  }, []);
-
-  const percIncrease = (a, b) =>{
-    let percent = 0.0;
-    if(b !== 0) 
-        if(a !== 0)
-            percent = (b - a) / a * 100;
-        else 
-            percent = b * 100;
-    else
-        percent = - a * 100;           
-    return percent.toFixed(2);
-  }
-
-  useEffect(()=>{
-      setFeatureOne(percIncrease(oldValues[0],values[0]))
-      setFeatureTwo(percIncrease(oldValues[1],values[1]))
-      setFeatureThree(percIncrease(oldValues[2],values[2]))
-      Weights['crowd'] = featureOne
-      Weights['unmasked'] = featureTwo
-      Weights['violation'] = featureThree
-  })
+export default function FeaturedInfoTrends({titles, values, weights, clause}) {
+  const [featureOne] = useState(weights[0])
+  const [featureTwo] = useState(weights[1])
+  const [featureThree] = useState(weights[2])
   
   return (
     <div className="featured">

@@ -1,7 +1,8 @@
 import "./trends.css"
 import {useEffect, useState} from "react";
 import Chart from "../../components/chart/Chart";
-import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
+import FeaturedInfoTrends from "../../components/featuredInfoTrends/FeaturedInfoTrends";
+import { Weights } from "./trends";
 
 export default function Trends(){
     const [noMask, setNoMask] = useState([])
@@ -11,19 +12,14 @@ export default function Trends(){
     const [numViolation, setNumViolation] = useState([])
     const [totalNumViolation, setTotalNumViolation] = useState(0)
 
-    const [noMaskLastWeek, setNoMaskLastWeek] = useState([])
-    const [totalNoMaskLastWeek, setTotalNoMaskLastWeek] = useState(0)
-    const [numPeopleLastWeek, setNumPeopleLastWeek] = useState([])
-    const [totalNumPeopleLastWeek, setTotalNumPeopleLastWeek] = useState(0)
-    const [numViolationLastWeek, setNumViolationLastWeek] = useState([])
-    const [totalNumViolationLastWeek, setTotalNumViolationLastWeek] = useState(0)
-
     useEffect(()=>{
         if(noMask.length===0)
         fetch('http://localhost:4000/facemask/noMask', {method:"GET"})
         .then(response => response.json())
         .then(jsonData => 
             {
+                jsonData['data'].forEach(e=>{e['Total']+=Math.floor((e['Total'])*Weights.unmasked/100)})
+                jsonData['total'] += Math.floor(jsonData['total']*Weights.unmasked/100)
                 setNoMask(jsonData['data'])
                 setTotalNoMask(jsonData['total'])
             })
@@ -34,6 +30,8 @@ export default function Trends(){
         .then(response => response.json())
         .then(jsonData => 
             {
+                jsonData['data'].forEach(e=>{e['Total']+=Math.floor((e['Total'])*Weights.crowd/100)})
+                jsonData['total'] += Math.floor(jsonData['total']*Weights.crowd/100)
                 setNumPeople(jsonData['data'])
                 setTotalNumPeople(jsonData['total'])
             })
@@ -44,53 +42,24 @@ export default function Trends(){
         .then(response => response.json())
         .then(jsonData => 
             {
+                jsonData['data'].forEach(e=>{e['Total']+=Math.floor((e['Total'])*Weights.violation/100)})
+                jsonData['total'] += Math.floor(jsonData['total']*Weights.violation/100)
                 setNumViolation(jsonData['data'])
                 setTotalNumViolation(jsonData['total'])
             })
         .catch(err => {})
-        
-        if(noMaskLastWeek.length===0)
-        fetch('http://localhost:4000/facemask/noMaskLastWeek', {method:"GET"})
-            .then(response => response.json())
-            .then(jsonData => 
-            {
-                setNoMaskLastWeek(jsonData['data'])
-                setTotalNoMaskLastWeek(jsonData['total'])
-            })
-            .catch(err => {})
-    
-        if(numPeopleLastWeek.length===0)
-        fetch('http://localhost:4000/socialdistance/numPeopleLastWeek', {method:"GET"})
-            .then(response => response.json())
-            .then(jsonData => 
-            {
-                setNumPeopleLastWeek(jsonData['data'])
-                setTotalNumPeopleLastWeek(jsonData['total'])
-            })
-            .catch(err => {})
-    
-        if(numViolationLastWeek.length===0)
-        fetch('http://localhost:4000/socialdistance/numViolationLastWeek', {method:"GET"})
-            .then(response => response.json())
-            .then(jsonData => 
-            {
-                setNumViolationLastWeek(jsonData['data'])
-                setTotalNumViolationLastWeek(jsonData['total'])
-            })
-            .catch(err => {})
-
         })
 
 
     
     return (
         <div className="trends">
-        <FeaturedInfo
+        <FeaturedInfoTrends
             className="trendsWidgets" 
             titles={["Crowd","No Mask","No Social Distance"]}
             values={[totalNumPeople, totalNoMask, totalNumViolation]}
-            oldValues={[totalNumPeopleLastWeek, totalNoMaskLastWeek, totalNumViolationLastWeek]}
-            clause="Compared to Last Week"
+            weights={[Weights.crowd, Weights.unmasked, Weights.violation]}
+            clause="Compared to Current Week"
         />
         <Chart className="trendsWidgets"  data={numPeople} title="Number Of People" grid dataKey="Total"/>
         <Chart className="trendsWidgets" data={noMask} title="People Without Mask" grid dataKey="Total"/>

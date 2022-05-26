@@ -84,18 +84,20 @@ export default function Home() {
           })
         .catch(err => {})
           
-      if(noMask.length && numPeople.length && numViolation.length)
-      database.ref('Snapshot/').set(
-        {
-          noMask: noMask,
-          numPeople: numPeople,
-          numViolation: numViolation,
-          lastUpdate: Date.now()
-        }
-      )
-      .catch(error =>{
-        console.log(error.message)
-      })
+      if(noMask.length && numPeople.length && numViolation.length && !snapshot){
+        database.ref('Snapshot/').set(
+          {
+            noMask: noMask,
+            numPeople: numPeople,
+            numViolation: numViolation,
+            lastUpdate: Date.now()
+          }
+        )
+        .catch(error =>{
+          console.log(error.message)
+        })
+        setSnapshot(true)
+    }
      })
 
 
