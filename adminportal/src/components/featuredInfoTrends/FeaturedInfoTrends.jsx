@@ -1,5 +1,5 @@
 import "./featuredInfo.css";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 
 export default function FeaturedInfoTrends({titles, values, weights, clause}) {

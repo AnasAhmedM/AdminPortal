@@ -1,7 +1,7 @@
 import "./featuredInfo.css";
 import {useEffect, useState} from "react";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
-import { Weights } from "../../pages/trends/trends";
+import { Weights } from "../../pages/trends/trendsW";
 
 export default function FeaturedInfo({titles, values, oldValues, clause}) {
   const [featureOne, setFeatureOne] = useState(0)

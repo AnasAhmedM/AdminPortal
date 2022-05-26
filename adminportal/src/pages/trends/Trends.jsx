@@ -2,7 +2,7 @@ import "./trends.css"
 import {useEffect, useState} from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfoTrends from "../../components/featuredInfoTrends/FeaturedInfoTrends";
-import { Weights } from "./trends";
+import { Weights } from "./trendsW";
 
 export default function Trends(){
     const [noMask, setNoMask] = useState([])
