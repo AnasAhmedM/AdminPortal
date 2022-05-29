@@ -86,7 +86,7 @@ function App(){
       setSendAlertCrowd(true)
       setTimeout(()=>{
         if(Weights.crowd>0)
-            NotificationManager.error(`Increased by ${Weights.crowd}%`,"Crowd is Increasing", 5*1000, true)
+            NotificationManager.error(`Increased by ${Weights.crowd}%`,"Crowd is Increasing", 15*1000, onClickNotification, true)
       },1000)
     }
 
@@ -94,7 +94,7 @@ function App(){
       setSendAlertUnmasked(true)
       setTimeout(()=>{
         if(Weights.unmasked>0)
-          NotificationManager.error(`Increased by ${Weights.unmasked}%`,"More People are not Wearing Masks", 5*1000, true)
+          NotificationManager.error(`Increased by ${Weights.unmasked}%`,"More People are not Wearing Masks", 15*1000, onClickNotification, true)
       },1000)
     }
 
@@ -102,7 +102,7 @@ function App(){
       setSendAlertViolation(true)
       setTimeout(()=>{
         if(Weights.violation>0)
-          NotificationManager.error(`Increased by ${Weights.violation}%`,"More People are not Social Distancing", 5*1000, true)
+          NotificationManager.error(`Increased by ${Weights.violation}%`,"More People are not Social Distancing", 15*1000, onClickNotification, true)
       },1000)
     }
   })

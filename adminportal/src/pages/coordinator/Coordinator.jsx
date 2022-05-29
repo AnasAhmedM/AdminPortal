@@ -104,15 +104,6 @@ export default function Coordinator() {
                 />
               </div>
               <div className="coordinatorUpdateItem">
-                <label>Email</label>
-                <input
-                  type="email"
-                  value={getEmail}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="coordinatorUpdateInput"
-                />
-              </div>
-              <div className="coordinatorUpdateItem">
                 <label>Department</label>
                 <input
                   type="text"
