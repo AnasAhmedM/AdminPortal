@@ -21,7 +21,7 @@ export default function CoordinatorList() {
         setData(values)
       });
     }
-  }, [])
+  })
 
   const handleDelete = (uid, email, password) => {
     confirmAlert({
